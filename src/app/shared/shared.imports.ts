@@ -1,15 +1,40 @@
-// aca va estar la coleccion me modulos 
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgOptimizedImage } from '@angular/common';
-import {RouterModule} from '@angular/router'; 
-
-export const SHARED_IMPORTS =[
-    
+ 
+/* =========================
+   Router
+   ========================= */
+import { RouterModule } from '@angular/router';
+ 
+/*Elementos de angular material*/
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import {MatRadioModule} from '@angular/material/radio';
+ 
+/**
+* SHARED_IMPORTS
+* ---------------------------------------------------------
+* Colección de módulos/directivas reutilizables en
+* componentes standalone.
+*
+* Se importa así:
+* imports: [...SHARED_IMPORTS, HeaderApp, FooterApp]
+*/
+ 
+export const SHARED_IMPORTS = [
   CommonModule,
   FormsModule,
   ReactiveFormsModule,
-  RouterModule,
   NgOptimizedImage,
-
+  RouterModule,
+  MatButtonModule,
+  MatCardModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatIconModule,
+  MatRadioModule
 ];

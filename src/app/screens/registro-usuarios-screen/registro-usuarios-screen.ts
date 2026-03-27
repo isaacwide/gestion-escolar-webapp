@@ -14,8 +14,8 @@ import { RegristroMaestros } from '../../partials/regristro-maestros/regristro-m
     ...SHARED_IMPORTS,
     RegristroAdmin,
     RegristroAlumnos,
-    RegristroMaestros
-  ],
+    RegristroMaestros,
+],
   templateUrl: './registro-usuarios-screen.html',
   styleUrl: './registro-usuarios-screen.scss',
 })

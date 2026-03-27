@@ -3,7 +3,9 @@ import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 
 import { routes } from './app.routes';
+
 import { provideNgxMask } from 'ngx-mask';
+import {MAT_DATE_LOCALE} from '@angular/material/core';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -11,6 +13,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideNgxMask()
+    provideNgxMask(),
+    { provide: MAT_DATE_LOCALE, useValue: 'es-MX' },
   ]
 };

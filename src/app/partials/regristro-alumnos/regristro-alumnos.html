@@ -75,7 +75,7 @@
       }
 
       <mat-form-field class="mat-input" appearance="outline">
-        <mat-label>RFC</mat-label>
+        <mat-label>CURP</mat-label>
         <input matInput minlength="12" maxlength="13" [(ngModel)]="alumno.curp" name="rfc" placeholder="Escribe la CURP">
         <mat-hint align="end">{{alumno.curp?.length || 0}}/13</mat-hint>
       </mat-form-field>
@@ -98,6 +98,23 @@
       }
 
 
+      <div class="select-materias">
+        <div class="row mt-3 mb-3">
+          <div class="form-group col-12">
+            <label class="title-materias" for="tipo_usuario">Selecciona las materias que cursa</label>
+          </div>
+        </div>
+        <div class="checkbox-group">
+          @for (materia of materias; track $index) {
+            <mat-checkbox class="checkbox-item opc-sc" name="opsc" (change)="checkboxChange($event)" value="{{materia.nombre}}" [checked]="revisarSeleccion(materia.nombre)">
+              <div class="d-checkbox-nombre">{{materia.nombre}}</div>
+          </mat-checkbox>
+          }
+        </div>
+        @if (errors.materias_json) {
+          <div class="invalid-feedback">{{ errors.materias_json }}</div>
+        }
+      </div>
 
 
       <div class="section-buttons">

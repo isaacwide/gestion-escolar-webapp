@@ -16,7 +16,8 @@ export class LoginScreen implements OnInit{
   public password:string='';
   public load:boolean=false;
   public error:any={};
-  public type:string="password"
+  public type:string="password";
+  public hide: boolean = false;
 
   constructor( 
     public router:Router
@@ -34,7 +35,14 @@ export class LoginScreen implements OnInit{
   }
 
   public showPassword(){
-
+    if(this.type === 'password'){
+      this.type = 'text';
+      this.hide = true;
+    }
+    else{
+      this.type = 'password';
+      this.hide = false;
+    }
   }
 
 

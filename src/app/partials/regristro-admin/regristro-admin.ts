@@ -3,6 +3,9 @@ import { SHARED_IMPORTS } from '../../shared/shared.imports';
 import { NgxMaskDirective } from "ngx-mask";
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { AdministradoresService } from '../../servicies/administradores-service'; //importamos coasa 
+import { NotificationService } from '../../servicies/tools/notification-service';
+
 
 @Component({
   selector: 'app-regristro-admin',
@@ -29,14 +32,24 @@ export class RegristroAdmin implements OnInit {
   public inputType_1: string = 'password';
   public inputType_2: string = 'password';
 
+
+  //ideclarsmos cosas en nuestro constructor 
   constructor(
     private location: Location,
-    private router: Router
+    private router: Router,
+    private administradoresService: AdministradoresService,
+    private notificationService: NotificationService
   ) { }
 
-  ngOnInit() {
-
+    ngOnInit() {
+    //Inicializar el objeto admin con el esquema definido en el servicio
+    this.admin = this.administradoresService.esquemaAdmin();
+    //Asignar el rol al admin que se va a registrar o editar
+    this.admin.rol = this.rol;
   }
+
+
+ 
 
   //Funciones para password
   public showPassword()
@@ -67,7 +80,27 @@ export class RegristroAdmin implements OnInit {
     this.location.back();
   }
 
+
   public registrar(){
+    // Inicializo el objeto de errores para evitar que se muestren errores anteriores o datos anteriores al momento de registrar un nuevo admin
+    this.errors = {};
+    console.log("Datos del admin: ", this.admin);
+
+    // Validar datos y mostrar errores
+    this.errors = this.administradoresService.validarAdmin(this.admin, this.editar);
+    //Verificamos si el objeto de errores está vacío, lo que indica que no hay errores de validación
+    if(Object.keys(this.errors).length > 0){
+      return;
+    }
+
+    // Validar si las contraseñas coinciden solo si no se está editando, ya que en la edición no es obligatorio cambiar la contraseña
+    if(this.admin.password === this.admin.confirmar_password){
+      // TODO: Aquí iría la lógica para registrar al administrador, como llamar a un servicio que se encargue de hacer la petición al backend
+    }else{
+      this.notificationService.error("Las contraseñas no coinciden");
+      this.admin.password="";
+      this.admin.confirmar_password="";
+    }
 
   }
 

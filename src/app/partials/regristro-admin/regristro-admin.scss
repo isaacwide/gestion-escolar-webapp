@@ -97,6 +97,15 @@ mat-form-field{
   opacity: 1;
 }
 
+.invalid-feedback {
+  color: #dc3545;
+  font-size: 12px;
+  margin-top: -15px;
+  margin-left: 5%;
+  margin-bottom: 5px;
+  display: block;
+}
+
 .mat-hint-margin {
   margin-bottom: 1rem;
 }

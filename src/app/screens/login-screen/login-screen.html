@@ -28,7 +28,7 @@
               style="padding-right:40px;" />
             <span class="show-password" (click)="showPassword()"
               style="position:absolute; right:18px; top:50%; transform:translateY(-50%);">
-              <i [ngClass]="type == 'password' ? 'bi bi-eye-fill' : 'bi bi-eye-slash-fill'"></i>
+              <i [ngClass]="hide ? 'bi bi-eye-slash-fill' : 'bi bi-eye-fill'"></i>
             </span>
           </div>
           @if (error.password) {

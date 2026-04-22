@@ -5,37 +5,38 @@ import { ValidatorService } from './tools/validator-service';
 @Injectable({
   providedIn: 'root',
 })
-export class AdministradoresService {
-
+export class MaestrosService {
 
   constructor(
     private validatorService: ValidatorService,
     private errorService: ErrorsService,
   ) {}
 
-  public esquemaAdmin(){
+  public esquemaMaestro(){
     return {
       'rol':'',
-      'clave_admin': '',
+      'id_trabajador': '',
       'first_name': '',
       'last_name': '',
       'email': '',
       'password': '',
       'confirmar_password': '',
+      'fecha_nacimiento': '',
       'telefono': '',
       'rfc': '',
-      'edad': '',
-      'ocupacion': ''
+      'cubiculo': '',
+      'area_investigacion': '',
+      'materias_array': []
     }
+
   }
 
-  public validarAdmin(data: any, editar: boolean){
-
+  //Validación para el formulario
+  public validarMaestro(data: any, editar: boolean){
     let error: any = {};
 
-     //Validaciones
-    if(!this.validatorService.required(data["clave_admin"])){
-      error["clave_admin"] = this.errorService.required;
+    if(!this.validatorService.required(data["id_trabajador"])){
+      error["id_trabajador"] = this.errorService.required;
     }
 
     if(!this.validatorService.required(data["first_name"])){
@@ -64,6 +65,10 @@ export class AdministradoresService {
       }
     }
 
+    if(!this.validatorService.required(data["fecha_nacimiento"])){
+      error["fecha_nacimiento"] = this.errorService.required;
+    }
+
     if(!this.validatorService.required(data["rfc"])){
       error["rfc"] = this.errorService.required;
     }else if(!this.validatorService.minLen(data["rfc"], 12)){
@@ -72,26 +77,22 @@ export class AdministradoresService {
       error["rfc"] = this.errorService.max;
     }
 
-    if(!this.validatorService.required(data["edad"])){
-      error["edad"] = this.errorService.required;
-    }else if(!this.validatorService.numeric(data["edad"])){
-      error["edad"] = this.errorService.numeric;
-    }else if(data["edad"]<18){
-      error["edad"] = "La edad debe ser mayor o igual a 18";
-    }
-
     if(!this.validatorService.required(data["telefono"])){
       error["telefono"] = this.errorService.required;
     }
 
-    if(!this.validatorService.required(data["ocupacion"])){
-      error["ocupacion"] = this.errorService.required;
+    if(!this.validatorService.required(data["cubiculo"])){
+      error["cubiculo"] = this.errorService.required;
     }
 
-    //Return arreglo
+    if(!this.validatorService.required(data["area_investigacion"])){
+      error["area_investigacion"] = this.errorService.required;
+    }
+
+    if(!this.validatorService.required(data["materias_array"])){
+      error["materias_array"] = "Debes seleccionar materias para poder registrarte";
+    }
+
     return error;
   }
-
-
-
 }

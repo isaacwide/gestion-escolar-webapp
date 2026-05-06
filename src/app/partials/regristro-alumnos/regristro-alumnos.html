@@ -10,10 +10,10 @@
       <!-- Aquí empiezan los campos del formulario -->
       <mat-form-field class="mat-input" appearance="outline">
         <mat-label>Ingrese la Matricula</mat-label>
-        <input matInput [(ngModel)]="alumno.id_trabajador" name="id_trabajador" placeholder="Escribe Matricula">
+        <input matInput [(ngModel)]="alumno.matricula" name="id_trabajador" placeholder="Escribe Matricula">
       </mat-form-field>
-      @if (errors.id_trabajador) {
-        <div class="invalid-feedback">{{ errors.id_trabajador }}</div>
+      @if (errors.matricula) {
+        <div class="invalid-feedback">{{ errors.matricula }}</div>
       }
 
        <mat-form-field class="mat-input" appearance="outline">
@@ -76,8 +76,8 @@
 
       <mat-form-field class="mat-input" appearance="outline">
         <mat-label>CURP</mat-label>
-        <input matInput minlength="12" maxlength="13" [(ngModel)]="alumno.curp" name="rfc" placeholder="Escribe la CURP">
-        <mat-hint align="end">{{alumno.curp?.length || 0}}/13</mat-hint>
+        <input matInput minlength="17" maxlength="18" [(ngModel)]="alumno.curp" name="rfc" placeholder="Escribe la CURP">
+        <mat-hint align="end">{{alumno.curp?.length || 0}}/18</mat-hint>
       </mat-form-field>
       @if (errors.curp) {
         <div class="invalid-feedback">{{ errors.curp }}</div>

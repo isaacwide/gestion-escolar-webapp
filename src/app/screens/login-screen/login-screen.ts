@@ -17,7 +17,7 @@ export class LoginScreen implements OnInit{
   public username:string='';
   public password:string='';
   public load:boolean=false;
-  public errors: any = {};
+  public error: any = {};
   public type:string="password";
   public hide: boolean = false;
 
@@ -33,13 +33,13 @@ export class LoginScreen implements OnInit{
 
   public login(){
     // Inicializo el objeto de errores para evitar que se muestren errores anteriores o datos anteriores al momento de registrar un nuevo admin
-    this.errors = {};
+    this.error = {};
     console.log("Datos del user: ", this.username, this.password);
 
     // Validar datos y mostrar errores
-    this.errors = this.authServices.validarLogin(this.username, this.password);
+    this.error = this.authServices.validarLogin(this.username, this.password);
     //Verificamos si el objeto de errores está vacío, lo que indica que no hay errores de validación
-    if(Object.keys(this.errors).length > 0){
+    if(Object.keys(this.error).length > 0){
       return;
     }
 
@@ -69,9 +69,9 @@ export class LoginScreen implements OnInit{
         this.load = false;
         this.notificationService.error("Error en el login: " + error.message);
         if (error.status === 401) {
-          this.errors.general = "Credenciales incorrectas";
+          this.error.general = "Credenciales incorrectas";
         } else {
-          this.errors.general = "Error en el servidor, por favor intenta más tarde";
+          this.error.general = "Error en el servidor, por favor intenta más tarde";
         }
       }
     });

@@ -61,7 +61,8 @@ export class RegristroMaestros implements OnInit {
 
   ngOnInit() {
 
-    this.maestro = this.maestrosService.esquemaMaestro()
+    this.maestro = this.maestrosService.esquemaMaestro();
+    this.maestro.rol = this.rol;
 
   }
 
@@ -117,6 +118,7 @@ public registrar(){
 
     // Validar si las contraseñas coinciden solo si no se está editando, ya que en la edición no es obligatorio cambiar la contraseña
     if(this.maestro.password === this.maestro.confirmar_password){
+      this.maestro.rol = this.rol;
       // TODO: Aquí iría la lógica para registrar al maestro, como llamar a un servicio que se encargue de hacer la petición al backend
       this.maestrosService.registrarMaestro(this.maestro).subscribe({
         next: (response) => {

@@ -43,6 +43,7 @@ export class RegistroUsuariosScreen implements OnInit {
   }
 
   public radioChange(event: MatRadioChange) {
+    this.user.tipo_usuario = event.value;
     if(event.value === "administrador"){
       this.isAdmin = true;
       this.isAlumno = false;

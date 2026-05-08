@@ -60,7 +60,8 @@ constructor(
   ) { }
 
   ngOnInit() {
-    this.alumno.materias_json = [];
+    this.alumno = this.alumnoService.esquemaAlumno();
+    this.alumno.rol = this.rol;
   }
 
 
@@ -128,7 +129,8 @@ constructor(
 
     // Validar si las contraseñas coinciden solo si no se está editando, ya que en la edición no es obligatorio cambiar la contraseña
     if(this.alumno.password === this.alumno.confirmar_password){
-      // TODO: Aquí iría la lógica para registrar al maestro, como llamar a un servicio que se encargue de hacer la petición al backend
+      this.alumno.rol = this.rol;
+      // TODO: Aquí iría la lógica para registrar al alumno, como llamar a un servicio que se encargue de hacer la petición al backend
       this.alumnoService.registrarAlumno(this.alumno).subscribe({
         next: (response) => {
           this.notificationService.success("Alumno registrado exitosamente");

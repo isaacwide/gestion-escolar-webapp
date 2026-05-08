@@ -27,6 +27,7 @@ export class AlumnoService {
 
   public esquemaAlumno(){
     return{
+      'rol':'',
       'matricula':'',
       'first_name':'',
       'last_name':'',

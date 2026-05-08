@@ -31,25 +31,20 @@
             [disabled]="editar">
 
             <!-- Radiobutton para seleccionar el tipo de usuario: Administrador -->
-            @if (!authService.getUserGroup() || authService.getUserGroup() === 'administrador') {
             <mat-radio-button class="role-pill" value="administrador">
               <mat-icon class="me-1" fontIcon="admin_panel_settings"></mat-icon>
               <span class="text-radio">Administrador</span>
             </mat-radio-button>
-            }
             <!-- Radiobutton para seleccionar el tipo de usuario: Alumnos -->
             <mat-radio-button class="role-pill" value="alumno">
               <mat-icon class="me-1" fontIcon="school"></mat-icon>
               <span class="text-radio">Alumno</span>
             </mat-radio-button>
             <!-- Radiobutton para seleccionar el tipo de usuario: Maestros -->
-            @if (!authService.getUserGroup() || authService.getUserGroup() === 'administrador' ||
-            authService.getUserGroup() === 'maestro') {
             <mat-radio-button class="role-pill" value="maestro">
               <mat-icon class="me-1" fontIcon="person"></mat-icon>
               <span class="text-radio">Maestro</span>
             </mat-radio-button>
-            }
           </mat-radio-group>
 
         </div>

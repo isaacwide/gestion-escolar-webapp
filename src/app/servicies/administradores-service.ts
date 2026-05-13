@@ -2,31 +2,30 @@ import { Injectable } from '@angular/core';
 import { ErrorsService } from './tools/erros-service';
 import { ValidatorService } from './tools/validator-service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AuthServices } from './auth-services';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { AuthServices } from './auth-services';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AdministradoresService {
 
-
   constructor(
     private validatorService: ValidatorService,
     private errorService: ErrorsService,
-    private http: HttpClient,  // para manejar las peticiones http 
+    private http: HttpClient,
     private authServices: AuthServices
   ) {}
 
-
-   /** Genera los HttpHeaders con el token de sesión si existe */
+  /** Genera los HttpHeaders con el token de sesión si existe */
   private getAuthHeaders(): HttpHeaders {
     const token = this.authServices.getSessionToken();
     return token
       ? new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` })
       : new HttpHeaders({ 'Content-Type': 'application/json' });
   }
+
   public esquemaAdmin(){
     return {
       'rol':'',
@@ -109,6 +108,11 @@ export class AdministradoresService {
   //Creamos la petición POST para registrar al administrador, esta función se llamará en el método registrar() del componente registro-admin.ts
   public registrarAdmin(data: any): Observable<any> {
     return this.http.post<any>(`${environment.url_api}/admin/`, data, { headers: this.getAuthHeaders() });
+  }
+
+  //Creamos la petición GET para obtener la lista de administradores, esta función se llamará en el método ngOnInit() del componente admin-screen.ts
+  public obtenerAdmins(): Observable<any> {
+    return this.http.get<any>(`${environment.url_api}/lista-admins/`, { headers: this.getAuthHeaders() });
   }
 
 }

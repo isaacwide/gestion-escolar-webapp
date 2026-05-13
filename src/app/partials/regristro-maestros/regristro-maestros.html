@@ -68,7 +68,7 @@
 
       <mat-form-field class="mat-input" appearance="outline">
         <mat-label>Teléfono</mat-label>
-        <input matInput [(ngModel)]="maestro.telefono" (input)="onTelefonoInput($event)" mask="000-000-0000" name="telefono" placeholder="Escribe teléfono del maestro">
+        <input matInput [(ngModel)]="maestro.telefono" name="telefono" placeholder="Escribe teléfono del maestro">
       </mat-form-field>
       @if (errors.telefono) {
         <div class="invalid-feedback">{{ errors.telefono }}</div>

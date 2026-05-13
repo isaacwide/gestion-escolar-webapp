@@ -5,9 +5,8 @@ import { Location } from '@angular/common';
 import { MaestrosService } from '../../servicies/maestros-service';
 import { NotificationService } from '../../servicies/tools/notification-service';
 
-
 @Component({
-  selector: 'app-regristro-maestros',
+  selector: 'app-registro-maestros',
   imports: [
     ...SHARED_IMPORTS
   ],
@@ -60,10 +59,9 @@ export class RegristroMaestros implements OnInit {
   ) { }
 
   ngOnInit() {
-
     this.maestro = this.maestrosService.esquemaMaestro();
+    // Rol del usuario
     this.maestro.rol = this.rol;
-
   }
 
   //Funciones para password
@@ -91,19 +89,11 @@ export class RegristroMaestros implements OnInit {
     }
   }
 
-  public filtrarTelefono(valor: string): string {
-    return valor.replace(/[^0-9-]/g, '');
-  }
-
-  public onTelefonoInput(event: any) {
-    this.maestro.telefono = this.filtrarTelefono(event.target.value);
-  }
-
   public regresar(){
     this.location.back();
   }
 
-public registrar(){
+  public registrar(){
 
     // Inicializo el objeto de errores para evitar que se muestren errores anteriores o datos anteriores al momento de registrar un nuevo admin
     this.errors = {};
@@ -118,18 +108,15 @@ public registrar(){
 
     // Validar si las contraseñas coinciden solo si no se está editando, ya que en la edición no es obligatorio cambiar la contraseña
     if(this.maestro.password === this.maestro.confirmar_password){
-      this.maestro.rol = this.rol;
-      // TODO: Aquí iría la lógica para registrar al maestro, como llamar a un servicio que se encargue de hacer la petición al backend
+      //Lógica para registrar el maestro, conectando con el backend y mostrando notificaciones de éxito o error según corresponda
       this.maestrosService.registrarMaestro(this.maestro).subscribe({
         next: (response) => {
           this.notificationService.success("Maestro registrado exitosamente");
-          console.log(response);
-          //Si se registra correctamente, redirigimos al login
-          this.router.navigate(['']);
+          this.router.navigate(['/maestros']);
         },
         error: (error) => {
-          console.error("Error al registrar Maestro: ", error);
-          this.notificationService.error("Error al registrar Maestro");
+          console.error("Error al registrar el maestro: ", error);
+          this.notificationService.error("Error al registrar el maestro. Por favor, inténtalo de nuevo.");
         }
       });
     }else{
@@ -139,7 +126,6 @@ public registrar(){
     }
 
   }
-
 
   public actualizar(){
 

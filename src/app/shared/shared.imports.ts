@@ -18,6 +18,15 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatSelectModule} from '@angular/material/select';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatTableModule} from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { CdkTableModule } from '@angular/cdk/table';
+
+/* =========================
+   ngx-mask (inputs de código)
+   ========================= */
+import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 
 /**
  * SHARED_IMPORTS
@@ -44,5 +53,11 @@ export const SHARED_IMPORTS = [
   MatDatepickerModule,
   MatSelectModule,
   MatNativeDateModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatSidenavModule,
+  MatTableModule,
+  MatPaginatorModule,
+  CdkTableModule,
+  NgxMaskDirective,
+  NgxMaskPipe,
 ];

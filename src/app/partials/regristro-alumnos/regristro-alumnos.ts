@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { NotificationService } from '../../servicies/tools/notification-service';
 import { AlumnoService } from '../../servicies/alumno-service';
-
+// este es mi codigo 
 @Component({
   selector: 'app-regristro-alumnos',
   imports: [

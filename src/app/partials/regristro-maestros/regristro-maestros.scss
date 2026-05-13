@@ -13,14 +13,6 @@
   background-color: #fff;
 }
 
-.invalid-feedback {
-  color: #dc3545;
-  font-size: 12px;
-  margin-top: -15px;
-  margin-left: 5%;
-  margin-bottom: 5px;
-  display: block;
-}
 /* Sección de registro */
 .section-registro {
   width: 90%;
@@ -183,6 +175,10 @@ mat-form-field {
   transition: color 0.3s ease; /* Suaviza el cambio de color */
 }
 
+.invalid-feedback, .feedback-error {
+  margin-left: 2.5rem;
+}
+
 /* =========================
    Ajustes para el formulario en dispositivos móviles
    ========================= */
@@ -237,4 +233,8 @@ mat-form-field {
     margin-left: 0; /* Elimina el margen */
   }
 
+}
+
+.invalid-feedback, .feedback-error {
+  margin-left: 2.5rem;
 }

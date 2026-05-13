@@ -79,7 +79,7 @@ export class LoginScreen implements OnInit{
   }
 
   public registrar(){
-    this.router.navigate(['registro-usuarios-screen']);
+    this.router.navigate(['registro-usuarios']);
   }
 
   public showPassword(){

@@ -21,7 +21,7 @@ export const routes: Routes = [
       },
       // agregamos una nueva ruta para pasar datos para editar los campos 
       {
-        path: 'registro-usuarios/:rol/:id ',
+        path: 'registro-usuarios/:rol/:id',
         loadComponent: () => import('./screens/registro-usuarios-screen/registro-usuarios-screen').then(m => m.RegistroUsuariosScreen),
       },
     ]

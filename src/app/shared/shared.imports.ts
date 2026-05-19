@@ -6,6 +6,8 @@ import { NgOptimizedImage } from '@angular/common';
    Router
    ========================= */
 import { RouterModule } from '@angular/router';
+//Agregar ngClass para el navbar
+import { NgClass } from '@angular/common';
 
 /*Elementos de angular material*/
 import { MatButtonModule } from '@angular/material/button';
@@ -21,7 +23,6 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatTableModule} from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { CdkTableModule } from '@angular/cdk/table';
 
 /* =========================
    ngx-mask (inputs de código)
@@ -57,7 +58,7 @@ export const SHARED_IMPORTS = [
   MatSidenavModule,
   MatTableModule,
   MatPaginatorModule,
-  CdkTableModule,
   NgxMaskDirective,
   NgxMaskPipe,
+  NgClass
 ];

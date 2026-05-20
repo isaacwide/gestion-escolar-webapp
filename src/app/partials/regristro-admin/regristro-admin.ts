@@ -135,7 +135,7 @@ export class RegristroAdmin implements OnInit {
       next: (response) => {
         this.notificationService.success("Administrador actualizado exitosamente");
         console.log(response);
-        //Si se actualiza correctamente, redirigimos al login
+         
         this.router.navigate(['/administrador']);
       },
       error: (error) => {

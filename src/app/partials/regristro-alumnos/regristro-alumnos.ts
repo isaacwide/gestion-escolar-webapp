@@ -1,10 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { SHARED_IMPORTS } from '../../shared/shared.imports';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router'; // ✅ Agregar ActivatedRoute
 import { Location } from '@angular/common';
 import { NotificationService } from '../../servicies/tools/notification-service';
 import { AlumnoService } from '../../servicies/alumno-service';
-// este es mi codigo 
+
 @Component({
   selector: 'app-regristro-alumnos',
   imports: [
@@ -13,32 +13,32 @@ import { AlumnoService } from '../../servicies/alumno-service';
   templateUrl: './regristro-alumnos.html',
   styleUrl: './regristro-alumnos.scss',
 })
-export class RegristroAlumnos implements OnInit {
+export class RegristroAlumnos implements OnInit, OnChanges {
   @Input() rol:string = "";
   @Input() datos_user:any = {};
 
   public alumno:any={};
   public errors:any={};
-  public inputType_1: string = 'password'; //inputs para cada entrada
+  public inputType_1: string = 'password';
   public inputType_2: string = 'password';
   public hide_1: boolean = false;
   public hide_2: boolean = false;
   public editar:boolean = false;
+  public idUser: number = 0; 
   public posgradoFlag:boolean = false;
 
-public carrera: any[] = [
-  { value: '1', viewValue: 'Ingeniería en Ciencias de la Computación' },
-  { value: '2', viewValue: 'Ingeniería en Tecnologías de la Información' },
-  { value: '3', viewValue: 'Licenciatura en Ciencias de la Computación' },
-];
+  public carrera: any[] = [
+    { value: '1', viewValue: 'Ingeniería en Ciencias de la Computación' },
+    { value: '2', viewValue: 'Ingeniería en Tecnologías de la Información' },
+    { value: '3', viewValue: 'Licenciatura en Ciencias de la Computación' },
+  ];
 
-public posgrado: any[] = [
-  { value: '1', viewValue: 'Maestría en Ciencias de la Computación' },
-  { value: '2', viewValue: 'Doctorado en Ciencias de la Computación' },
-];
+  public posgrado: any[] = [
+    { value: '1', viewValue: 'Maestría en Ciencias de la Computación' },
+    { value: '2', viewValue: 'Doctorado en Ciencias de la Computación' },
+  ];
 
-
- public materias:any[] = [
+  public materias:any[] = [
     {value: '1', nombre: 'Aplicaciones Web'},
     {value: '2', nombre: 'Programación 1'},
     {value: '3', nombre: 'Bases de datos'},
@@ -50,121 +50,156 @@ public posgrado: any[] = [
     {value: '9', nombre: 'Ingeniería de Software'},
     {value: '10', nombre: 'Administración de S.O.'},
   ];
-  
 
-constructor(
+  constructor(
     private location: Location,
     private router: Router,
     private alumnoService: AlumnoService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private activatedRoute: ActivatedRoute 
   ) { }
 
-  ngOnInit() {
-    this.alumno = this.alumnoService.esquemaAlumno();
-    this.alumno.rol = this.rol;
+  ngOnChanges(changes: SimpleChanges) {
+    if(changes['datos_user'] && changes['datos_user'].currentValue){
+      this.alumno = this.normalizeAlumno(changes['datos_user'].currentValue);
+    }
   }
 
+  ngOnInit() {
+    if(this.activatedRoute.snapshot.params['id'] !== undefined){
+      this.editar = true;
+      this.idUser = this.activatedRoute.snapshot.params['id'];
+      this.alumno = this.normalizeAlumno(this.datos_user);
+    }else{
+      this.alumno = this.alumnoService.esquemaAlumno();
+      this.alumno.rol = this.rol;
+    }
+  }
 
+  private normalizeAlumno(rawAlumno: any) {
+    const alumno = rawAlumno ? { ...rawAlumno } : this.alumnoService.esquemaAlumno();
+    alumno.materias_json = this.toArray(alumno.materias_json);
+    return alumno;
+  }
 
-  public showPassword()
-  {
+  private toArray(value: any) {
+    if (Array.isArray(value)) {
+      return value;
+    }
+    if (value == null) {
+      return [];
+    }
+    if (typeof value === 'string') {
+      try {
+        const parsed = JSON.parse(value);
+        if (Array.isArray(parsed)) {
+          return parsed;
+        }
+      } catch {
+        // Ignorar error, intentar separar por comas
+      }
+      return value.split(',').map((item: string) => item.trim()).filter(Boolean);
+    }
+    if (typeof value === 'object') {
+      return Object.values(value).flat();
+    }
+    return [];
+  }
+
+  public showPassword(){
     if(this.inputType_1 === 'password'){
       this.inputType_1 = 'text';
       this.hide_1 = true;
-    }
-    else{
+    }else{
       this.inputType_1 = 'password';
       this.hide_1 = false;
     }
   }
 
-
-  public showPwdConfirmar()
-  {
+  public showPwdConfirmar(){
     if(this.inputType_2 === 'password'){
       this.inputType_2 = 'text';
       this.hide_2 = true;
-    }
-    else{
+    }else{
       this.inputType_2 = 'password';
       this.hide_2 = false;
     }
   }
 
   public revisarSeleccion(nombre: string){
-    if(this.alumno.materias_json){
-      const busqueda = this.alumno.materias_json.find((element: string)=>element===nombre);
-      if(busqueda !== undefined){
-        return true;
-      }else{
-        return false;
-      }
-    }else{
-      return false;
-    }
+    this.alumno.materias_json = this.toArray(this.alumno.materias_json);
+    return this.alumno.materias_json.includes(nombre);
   }
 
-  //Función para detectar el cambio de fecha
-  public changeFecha(event :any){
+  public changeFecha(event: any){
     this.alumno.fecha_nacimiento = event.value.toISOString().split("T")[0];
   }
-
 
   public regresar(){
     this.location.back();
   }
 
- public registrar(){
-
-    // Inicializo el objeto de errores para evitar que se muestren errores anteriores o datos anteriores al momento de registrar un nuevo admin
+  public registrar(){
     this.errors = {};
-    console.log("Datos del maestro: ", this.alumno);
+    console.log("Datos del alumno: ", this.alumno);
 
-    // Validar datos y mostrar errores
     this.errors = this.alumnoService.validarAlumno(this.alumno, this.editar);
-    //Verificamos si el objeto de errores está vacío, lo que indica que no hay errores de validación
     if(Object.keys(this.errors).length > 0){
       return;
     }
 
-    // Validar si las contraseñas coinciden solo si no se está editando, ya que en la edición no es obligatorio cambiar la contraseña
     if(this.alumno.password === this.alumno.confirmar_password){
       this.alumno.rol = this.rol;
-      // TODO: Aquí iría la lógica para registrar al alumno, como llamar a un servicio que se encargue de hacer la petición al backend
       this.alumnoService.registrarAlumno(this.alumno).subscribe({
         next: (response) => {
           this.notificationService.success("Alumno registrado exitosamente");
           console.log(response);
-          //Si se registra correctamente, redirigimos al login
           this.router.navigate(['']);
         },
         error: (error) => {
           console.error("Error al registrar Alumno: ", error);
-          this.notificationService.error("Error al registrar Maestro");
+          this.notificationService.error("Error al registrar Alumno");
         }
       });
     }else{
       this.notificationService.error("Las contraseñas no coinciden");
-      this.alumno.password="";
-      this.alumno.confirmar_password="";
+      this.alumno.password = "";
+      this.alumno.confirmar_password = "";
     }
-
   }
 
   public actualizar(){
 
+    this.errors = {};
+    this.errors = this.alumnoService.validarAlumno(this.alumno, this.editar);
+    if(Object.keys(this.errors).length > 0){
+      return;
+    }
+
+    this.alumnoService.actualizarAlumno(this.alumno).subscribe({
+      next: (response) => {
+        this.notificationService.success("Alumno actualizado exitosamente");
+        console.log(response);
+        this.router.navigate(['/alumnos']); // ajusta la ruta según tu app
+      },
+      error: (error) => {
+        console.error("Error al actualizar Alumno: ", error);
+        this.notificationService.error("Error al actualizar Alumno");
+      }
+    });
   }
 
-
-  public checkboxChange(event:any){
+  public checkboxChange(event: any){
+    this.alumno.materias_json = this.toArray(this.alumno.materias_json);
     if(event.checked){
-      this.alumno.materias_json.push(event.source.value)
+      if(!this.alumno.materias_json.includes(event.source.value)){
+        this.alumno.materias_json.push(event.source.value);
+      }
     }else{
-      this.alumno.materias_json.forEach((materia: any, i: any) => {
-        if(materia === event.source.value){
-          this.alumno.materias_json.splice(i,1)
-        }
-      });
+      const index = this.alumno.materias_json.indexOf(event.source.value);
+      if(index >= 0){
+        this.alumno.materias_json.splice(index, 1);
+      }
     }
   }
 }

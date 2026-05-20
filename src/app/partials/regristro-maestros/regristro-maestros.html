@@ -7,7 +7,7 @@
           <label class="title-user" for="tipo_usuario">Ingresa los datos del maestro</label>
         </div>
       </div>
-      <!-- Aquí empiezan los campos del formulario -->
+
       <mat-form-field class="mat-input" appearance="outline">
         <mat-label>ID de trabajador</mat-label>
         <input matInput [(ngModel)]="maestro.id_trabajador" name="id_trabajador" placeholder="Escribe ID de trabajador">
@@ -31,34 +31,34 @@
       @if (errors.last_name) {
         <div class="invalid-feedback">{{ errors.last_name }}</div>
       }
-
       <mat-form-field class="mat-input" appearance="outline">
         <mat-label>Correo electrónico</mat-label>
-        <input matInput [(ngModel)]="maestro.email" name="email" placeholder="Escribe correo electrónico">
+        <input matInput [(ngModel)]="maestro.email" name="email" placeholder="Escribe correo electrónico" [disabled]="editar">
       </mat-form-field>
       @if (errors.email) {
         <div class="invalid-feedback">{{ errors.email }}</div>
       }
 
-      <mat-form-field class="mat-input" appearance="outline">
-        <mat-label>Contraseña</mat-label>
-        <input matInput [(ngModel)]="maestro.password" name="password" [type]="inputType_1" placeholder="Escribe contraseña del maestro">
-        <mat-icon matSuffix class="eye-icon" (click)="showPassword()">{{hide_1 ? 'visibility_off' : 'visibility'}}</mat-icon>
-      </mat-form-field>
-      @if (errors.password) {
-        <div class="invalid-feedback">{{ errors.password }}</div>
+      @if (!editar) {
+        <mat-form-field class="mat-input" appearance="outline">
+          <mat-label>Contraseña</mat-label>
+          <input matInput [(ngModel)]="maestro.password" name="password" [type]="inputType_1" placeholder="Escribe contraseña del maestro">
+          <mat-icon matSuffix class="eye-icon" (click)="showPassword()">{{hide_1 ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </mat-form-field>
+        @if (errors.password) {
+          <div class="invalid-feedback">{{ errors.password }}</div>
+        }
+
+        <mat-form-field class="mat-input" appearance="outline">
+          <mat-label>Confirmar contraseña</mat-label>
+          <input matInput [(ngModel)]="maestro.confirmar_password" name="confirmar_password" [type]="inputType_2" placeholder="Confirma contraseña del maestro">
+          <mat-icon matSuffix class="eye-icon" (click)="showPwdConfirmar()">{{hide_2 ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </mat-form-field>
+        @if (errors.confirmar_password) {
+          <div class="invalid-feedback">{{ errors.confirmar_password }}</div>
+        }
       }
 
-      <mat-form-field class="mat-input" appearance="outline">
-        <mat-label>Confirmar contraseña</mat-label>
-        <input matInput [(ngModel)]="maestro.confirmar_password" name="confirmar_password" [type]="inputType_2" placeholder="Confirma contraseña del maestro">
-        <mat-icon matSuffix class="eye-icon" (click)="showPwdConfirmar()">{{hide_2 ? 'visibility_off' : 'visibility'}}</mat-icon>
-      </mat-form-field>
-      @if (errors.confirmar_password) {
-        <div class="invalid-feedback">{{ errors.confirmar_password }}</div>
-      }
-
-      <!-- Campo para la fecha de nacimiento del maestro -->
       <mat-form-field class="mat-input" appearance="outline">
         <mat-label>Fecha de nacimiento</mat-label>
         <input matInput [matDatepicker]="picker" [(ngModel)]="maestro.fecha_nacimiento" (focus)="picker.open()" placeholder="Elegir fecha de nacimiento" (dateChange)="changeFecha($event)" type="text">
@@ -68,7 +68,7 @@
 
       <mat-form-field class="mat-input" appearance="outline">
         <mat-label>Teléfono</mat-label>
-        <input matInput [(ngModel)]="maestro.telefono" name="telefono" placeholder="Escribe teléfono del maestro">
+        <input matInput [(ngModel)]="maestro.telefono" mask="000-000-0000" name="telefono" placeholder="Escribe teléfono del maestro">
       </mat-form-field>
       @if (errors.telefono) {
         <div class="invalid-feedback">{{ errors.telefono }}</div>
@@ -105,7 +105,6 @@
         <div class="invalid-feedback">{{ errors.area_investigacion }}</div>
       }
 
-      <!-- Sección de los checkbox para seleccionar las materias que imparte el maestro -->
       <div class="select-materias">
         <div class="row mt-3 mb-3">
           <div class="form-group col-12">
@@ -116,22 +115,24 @@
           @for (materia of materias; track $index) {
             <mat-checkbox class="checkbox-item opc-sc" name="opsc" (change)="checkboxChange($event)" value="{{materia.nombre}}" [checked]="revisarSeleccion(materia.nombre)">
               <div class="d-checkbox-nombre">{{materia.nombre}}</div>
-          </mat-checkbox>
+            </mat-checkbox>
           }
         </div>
         @if (errors.materias_array) {
           <div class="invalid-feedback">{{ errors.materias_array }}</div>
         }
       </div>
-      <!-- En esta clase se definen los botones para guardar o actualizar el registro -->
+
+      
       <div class="section-buttons">
         <button class="btn btn-danger" (click)="regresar()">Cancelar</button>
-        @if(!editar){
+        @if (!editar) {
           <button class="btn btn-primary" type="submit" (click)="registrar()">Registrar</button>
-        }@else{
+        } @else {
           <button class="btn btn-primary" type="submit" (click)="actualizar()">Actualizar</button>
         }
       </div>
+
     </div>
   </div>
 </div>

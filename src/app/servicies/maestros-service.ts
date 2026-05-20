@@ -3,7 +3,7 @@ import { ErrorsService } from './tools/erros-service';
 import { ValidatorService } from './tools/validator-service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthServices } from './auth-services';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -116,5 +116,13 @@ export class MaestrosService {
   //Función para obtener la lista de maestros registrados
   public obtenerListaMaestros(): Observable<any> {
     return this.http.get<any>(`${environment.url_api}/lista-maestros/`, { headers: this.getAuthHeaders() });
+  }
+
+  public obtenerMaestroPorId(id: number): Observable<any> {
+    return this.http.get<any>(`${environment.url_api}/maestro/?id=${id}`, { headers: this.getAuthHeaders() });
+  }
+
+  public actualizarMaestro(data: any): Observable<any> {
+    return this.http.put<any>(`${environment.url_api}/maestro/`, data, { headers: this.getAuthHeaders() });
   }
 }

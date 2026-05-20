@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SHARED_IMPORTS } from '../../shared/shared.imports';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { MaestrosService } from '../../servicies/maestros-service';
 import { NotificationService } from '../../servicies/tools/notification-service';
@@ -55,13 +55,49 @@ export class RegristroMaestros implements OnInit {
     private location: Location,
     private router: Router,
     private maestrosService: MaestrosService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private activatedRoute: ActivatedRoute 
   ) { }
 
   ngOnInit() {
-    this.maestro = this.maestrosService.esquemaMaestro();
-    // Rol del usuario
-    this.maestro.rol = this.rol;
+    if(this.activatedRoute.snapshot.params['id'] !== undefined){
+      this.editar = true;
+      this.idUser = this.activatedRoute.snapshot.params['id'];
+      this.maestro = this.normalizeMestro(this.datos_user);
+    }else{
+      this.maestro = this.maestrosService.esquemaMaestro();
+      this.maestro.rol = this.rol;
+    }
+  }
+
+  private normalizeMestro(rawMaestro: any) {
+    const maestro = rawMaestro ? { ...rawMaestro } : this.maestrosService.esquemaMaestro();
+    maestro.materias_array = this.toArray(maestro.materias_array);
+    return maestro;
+  }
+
+  private toArray(value: any) {
+    if (Array.isArray(value)) {
+      return value;
+    }
+    if (value == null) {
+      return [];
+    }
+    if (typeof value === 'string') {
+      try {
+        const parsed = JSON.parse(value);
+        if (Array.isArray(parsed)) {
+          return parsed;
+        }
+      } catch {
+        // Ignorar error, intentar separar por comas
+      }
+      return value.split(',').map((item: string) => item.trim()).filter(Boolean);
+    }
+    if (typeof value === 'object') {
+      return Object.values(value).flat();
+    }
+    return [];
   }
 
   //Funciones para password
@@ -128,6 +164,23 @@ export class RegristroMaestros implements OnInit {
   }
 
   public actualizar(){
+    this.errors = {};
+    this.errors = this.maestrosService.validarMaestro(this.maestro, this.editar);
+    if(Object.keys(this.errors).length > 0){
+      return;
+    }
+
+    this.maestrosService.actualizarMaestro(this.maestro).subscribe({
+      next: (response) => {
+        this.notificationService.success("Maestro actualizado exitosamente");
+        console.log(response);
+        this.router.navigate(['/maestros']); // ajusta la ruta según tu app
+      },
+      error: (error) => {
+        console.error("Error al actualizar Alumno: ", error);
+        this.notificationService.error("Error al actualizar Alumno");
+      }
+    });
 
   }
 

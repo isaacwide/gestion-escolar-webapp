@@ -27,6 +27,7 @@ export class AdminScreen implements OnInit{
   }
 
   ngOnInit(): void {
+    this.name_user = this.authService.getUserCompleteName()
     this.obtenerAdministradores();
   }
 

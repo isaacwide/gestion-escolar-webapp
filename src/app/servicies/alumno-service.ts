@@ -109,5 +109,17 @@ export class AlumnoService {
   public registrarAlumno(data: any): Observable<any> {
         return this.http.post<any>(`${environment.url_api}/alumno/`, data, { headers: this.getAuthHeaders() });
       }
+
+  public obtenerAlumnos(): Observable<any> {
+    return this.http.get<any>(`${environment.url_api}/lista-alumnos/`, { headers: this.getAuthHeaders() });
+  }
+
+  public obtenerAlumnoPorId(id: number): Observable<any> {
+    return this.http.get<any>(`${environment.url_api}/alumno/?id=${id}`, { headers: this.getAuthHeaders() });
+  }
+
+  public actualizarAlumno(data: any): Observable<any> {
+    return this.http.put<any>(`${environment.url_api}/alumno/`, data, { headers: this.getAuthHeaders() });
+  }
   
 }

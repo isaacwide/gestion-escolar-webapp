@@ -27,7 +27,7 @@
             </mat-form-field>
 
             <div class="mat-elevation-z8">
-              <table mat-table [dataSource]="dataSource" matSort style="min-width: 1200px; width: 100%;">
+              <table mat-table [dataSource]="dataSource" matSort #sort="matSort" style="min-width: 1200px; width: 100%;">
 
                 <ng-container matColumnDef="id_trabajador">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> ID trabajador </th>
@@ -94,7 +94,7 @@
               </table>
             </div>
 
-            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+            <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
               style="min-width: 1200px; width: 100%;">
             </mat-paginator>
           </div>

@@ -40,7 +40,9 @@ export class MaestrosService {
       'rfc': '',
       'cubiculo': '',
       'area_investigacion': '',
-      'materias_array': []
+      'materias_array': [],
+      'campus':'',
+      'sueldo':''
     }
 
   }
@@ -107,8 +109,19 @@ export class MaestrosService {
       error["materias_array"] = "Debes seleccionar materias para poder registrarte";
     }
 
+    if(!this.validatorService.required(data["campus"])){
+      error["campus"] = "Debes seleccionar un campus";
+    }
+
+    if(!this.validatorService.required(data["sueldo"])){
+      error["sueldo"] = this.errorService.required;
+    }
+
     return error;
   }
+
+
+
   public registrarMaestro(data: any): Observable<any> {
       return this.http.post<any>(`${environment.url_api}/maestro/`, data, { headers: this.getAuthHeaders() });
     }

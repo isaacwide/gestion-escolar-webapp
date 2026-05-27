@@ -15,8 +15,17 @@ import { NotificationService } from '../../servicies/tools/notification-service'
 })
 export class RegristroMaestros implements OnInit {
 
+
+
+    
   @Input() rol:string = "";
   @Input() datos_user:any = {};
+
+  public campus:any[] = [
+    {value: '1', viewValue: 'CU San Manuel'},
+    {value: '2', viewValue: 'CU2'}
+  ];
+
 
   public maestro: any = {};
   public errors: any = {};

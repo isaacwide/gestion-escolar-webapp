@@ -4,6 +4,8 @@ import { AuthServices } from '../../servicies/auth-services';
 import { Router } from '@angular/router';
 import { AdministradoresService } from '../../servicies/administradores-service';
 import { NotificationService } from '../../servicies/tools/notification-service';
+import { EliminarUserModal } from '../../modals/eliminar-user-modl/eliminar-user-modl';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-admin-screen',
@@ -16,18 +18,22 @@ import { NotificationService } from '../../servicies/tools/notification-service'
 export class AdminScreen implements OnInit{
   // Variables y métodos del componente
   public name_user: string = "";
+  public rol: string = '';
   public lista_admins: any[] = [];
+
 
   constructor(
     private authService: AuthServices,
     private notificationService: NotificationService,
     private administradoresService: AdministradoresService,
     private router: Router,
+    private dialog: MatDialog
   ) {
   }
 
   ngOnInit(): void {
     this.name_user = this.authService.getUserCompleteName()
+    this.rol = this.authService.getUserGroup();
     this.obtenerAdministradores();
   }
 
@@ -50,7 +56,32 @@ export class AdminScreen implements OnInit{
 
   //Metodo para eliminar un administrador, se muestra una confirmación antes de eliminar
   public delete(id: number): void {
+    // Se obtiene el ID del usuario en sesión, es decir, quien intenta eliminar al administrador
+    const idUserSession = Number(this.authService.getUserId());
+
+    // Si el usuario en sesión es el mismo que el administrador que se intenta eliminar, se muestra un mensaje de error
+    if (idUserSession === id) {
+      this.notificationService.error('No puedes eliminar tu propia cuenta de administrador.');
+      return;
+    }
+
+    // Si el usuario en sesión es diferente al administrador que se intenta eliminar o es cualquier otro usuario, abrimos el modal de confirmación para eliminar al administrador
+    const dialogRef = this.dialog.open(EliminarUserModal, {
+      data: { id: id, rol: 'administrador' }, // Se pasan valores a través del componente
+      height: '288px',
+      width: '328px',
+    });
+
+    //Después de cerrar el modal, se actualiza la lista de administradores para reflejar los cambios
+      dialogRef.afterClosed().subscribe(result => {
+        if(result.isDelete){
+          this.obtenerAdministradores();
+        }else{
+          this.notificationService.error("Administrador no se ha podido eliminar.");
+        }
+      });
 
   }
+
 
 }

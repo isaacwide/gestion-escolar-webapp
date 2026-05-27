@@ -48,10 +48,14 @@ export const routes: Routes = [
         path: 'maestros',
         loadComponent: () => import('./screens/maestro-screen/maestro-screen').then(m => m.MaestrosScreen),
       },
+      {
+        path:'graficas',
+        loadComponent:() => import('./screens/graficas-screen/graficas-screen').then(m =>m.GraficasScreen),
+      }
     ]
   },
 
-  // Retorna a la ruta de login para cualquier ruta no reconocida
+  // Retorna a home para cualquier ruta no reconocida
 
-  { path: '**', redirectTo: 'login' },
+  { path: '**', redirectTo: '/login' },
 ];

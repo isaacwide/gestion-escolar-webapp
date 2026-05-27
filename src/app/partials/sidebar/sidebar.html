@@ -11,7 +11,7 @@
           </li>
         }
         @if (canSeeRegisterItem()) {
-          <li class="sidebar-item" (click)="closeSidebar()">
+          <li routerLink="/registro-usuarios" routerLinkActive="active" (click)="closeSidebar()">
             <mat-icon>person_add</mat-icon>
             <span>Registro</span>
           </li>
@@ -27,7 +27,7 @@
 
         <!-- Maestros - Only for administrators -->
         @if (canSeeAdminItems()) {
-          <li class="sidebar-item" (click)="goToMaestros()">
+          <li routerLink="/maestros" routerLinkActive="active" (click)="closeSidebar()">
             <mat-icon>people</mat-icon>
             <span>Maestros</span>
           </li>

@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { EliminarUserModal } from '../../modals/eliminar-user-modl/eliminar-user-modl';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-alumno-screen',
@@ -18,6 +20,7 @@ export class AlumnoScreen implements OnInit, AfterViewInit {
 
   public name_user: string = "";
   public lista_alumno: any[] = [];
+  public rol: string = '';
 
   public displayedColumns: string[] = [
     'matricula',
@@ -41,10 +44,12 @@ export class AlumnoScreen implements OnInit, AfterViewInit {
     private alumnoService: AlumnoService,
     private router: Router,
     private cdr: ChangeDetectorRef,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
     this.name_user = this.authService.getUserCompleteName();
+    this.rol = this.authService.getUserGroup();
     this.obtenerAlumnos();
   }
 
@@ -114,5 +119,32 @@ export class AlumnoScreen implements OnInit, AfterViewInit {
     this.router.navigate(['/registro-usuarios', 'alumno', id]);
   }
 
-  public delete(id: number): void {}
+  public delete(idUser: number) {
+      // Se obtiene el ID del usuario en sesión, es decir, quien intenta eliminar al maestro
+      const idUserSession = Number(this.authService.getUserId());
+      // --------- Pero el parámetro idUser (el de la función) es el ID del maestro que se quiere eliminar ---------
+      // Administrador puede eliminar cualquier maestro
+      // Maestro solo puede eliminar su propio registro
+      if (this.rol === 'administrador' || this.rol === 'maestro' || (this.rol === 'alumno' && idUserSession === idUser)) {
+        //Si es administrador o es maestro, es decir, cumple la condición, se puede eliminar
+        const dialogRef = this.dialog.open(EliminarUserModal,{
+          data: { id: idUser, rol: 'alumno' }, //Se pasan valores a través del componente
+          height: '288px',
+          width: '328px',
+        });
+  
+        //Después de cerrar el modal, se actualiza la lista de maestros para reflejar los cambios
+        dialogRef.afterClosed().subscribe(result => {
+          if(result.isDelete){
+            this.obtenerAlumnos();
+          }else{
+            this.notificationService.error("Alumno no se ha podido eliminar.");
+          }
+        });
+      }else{
+        //Si no cumple la condición, se muestra un mensaje de error
+        this.notificationService.error("No tienes permiso para eliminar a este alumno.");
+      }
+  
+    }
 }

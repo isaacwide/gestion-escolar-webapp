@@ -2,10 +2,13 @@
 import { NgClass } from '@angular/common';
 import { AuthServices } from '../../servicies/auth-services';
 import { Router } from '@angular/router';
+import { SHARED_IMPORTS } from '../../shared/shared.imports';
 
 @Component({
   selector: 'app-navbar-usar',
-  imports: [NgClass],
+  imports: [
+    ...SHARED_IMPORTS
+  ],
   templateUrl: './navbar-usar.html',
   styleUrl: './navbar-usar.scss',
 })

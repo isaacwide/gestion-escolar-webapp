@@ -125,4 +125,12 @@ export class MaestrosService {
   public actualizarMaestro(data: any): Observable<any> {
     return this.http.put<any>(`${environment.url_api}/maestro/`, data, { headers: this.getAuthHeaders() });
   }
+
+  public eliminarMaestro(id: number): Observable<any> {
+    return this.http.delete<any>(`${environment.url_api}/maestro/?id=${id}`, { headers: this.getAuthHeaders() });
+  }
+
+  public getTotalUsuarios(): Observable<any> {
+    return this.http.get<any>(`${environment.url_api}/total-usuarios/`, { headers: this.getAuthHeaders() });
+  }
 }

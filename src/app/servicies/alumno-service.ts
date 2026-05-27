@@ -121,5 +121,9 @@ export class AlumnoService {
   public actualizarAlumno(data: any): Observable<any> {
     return this.http.put<any>(`${environment.url_api}/alumno/`, data, { headers: this.getAuthHeaders() });
   }
+
+  public eliminarAlumno(id: number): Observable<any> {
+    return this.http.delete<any>(`${environment.url_api}/alumno/?id=${id}`, { headers: this.getAuthHeaders() });
+  }
   
 }

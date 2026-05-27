@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { MaestrosService } from '../../servicies/maestros-service';
 import { NotificationService } from '../../servicies/tools/notification-service';
 import { AuthServices } from '../../servicies/auth-services';
+import { EliminarUserModal } from '../../modals/eliminar-user-modl/eliminar-user-modl';
 
 @Component({
   selector: 'app-maestros-screen',
@@ -30,7 +31,7 @@ export class MaestrosScreen implements OnInit, AfterViewInit{
   dataSource = new MatTableDataSource<DatosMaestro>([]);
 
   @ViewChild('paginator') paginator!: MatPaginator;
-  @ViewChild('sort') sort!: MatSort; // ✅ Agregar
+  @ViewChild('sort') sort!: MatSort; 
 
   constructor(
     private authService: AuthServices,
@@ -70,17 +71,17 @@ export class MaestrosScreen implements OnInit, AfterViewInit{
           if (sortHeaderId === 'nombre') {
             return `${data.first_name || ''}`.toLowerCase();
           }
-          // allow other columns to sort by their property value
+          
           return data[sortHeaderId];
         };
 
-        // ✅ Filtro por nombre
+        
             this.dataSource.filterPredicate = (data: any, filter: string) => {
               const nombre = `${data.first_name} ${data.last_name}`.toLowerCase();
               return nombre.includes(filter);
             };
 
-            // force change detection so paginator/sort children are created
+            
             this.cdr.detectChanges();
 
             if (this.paginator) {
@@ -110,5 +111,32 @@ export class MaestrosScreen implements OnInit, AfterViewInit{
     this.router.navigate(['/registro-usuarios', 'maestro', idUser]);
   }
 
-  public delete(idUser: number) {}
+  public delete(idUser: number) {
+    // Se obtiene el ID del usuario en sesión, es decir, quien intenta eliminar al maestro
+    const idUserSession = Number(this.authService.getUserId());
+    // --------- Pero el parámetro idUser (el de la función) es el ID del maestro que se quiere eliminar ---------
+    // Administrador puede eliminar cualquier maestro
+    // Maestro solo puede eliminar su propio registro
+    if (this.rol === 'administrador' || (this.rol === 'maestro' && idUserSession === idUser)) {
+      //Si es administrador o es maestro, es decir, cumple la condición, se puede eliminar
+      const dialogRef = this.dialog.open(EliminarUserModal,{
+        data: { id: idUser, rol: 'maestro' }, //Se pasan valores a través del componente
+        height: '288px',
+        width: '328px',
+      });
+
+      //Después de cerrar el modal, se actualiza la lista de maestros para reflejar los cambios
+      dialogRef.afterClosed().subscribe(result => {
+        if(result.isDelete){
+          this.obtenerMaestros();
+        }else{
+          this.notificationService.error("Maestro no se ha podido eliminar.");
+        }
+      });
+    }else{
+      //Si no cumple la condición, se muestra un mensaje de error
+      this.notificationService.error("No tienes permiso para eliminar a este maestro.");
+    }
+
+  }
 }

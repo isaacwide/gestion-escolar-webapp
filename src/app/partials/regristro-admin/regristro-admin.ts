@@ -32,6 +32,11 @@ export class RegristroAdmin implements OnInit {
   public inputType_1: string = 'password';
   public inputType_2: string = 'password';
 
+  public categoria: any = [
+    {value: '1', viewValue: 'Tiempo completo'},
+    {value: '2', viewValue: 'Medio tiempo'},
+    {value: '3', viewValue: 'Hora-Clase'}
+  ];
 
   //ideclarsmos cosas en nuestro constructor 
   constructor(

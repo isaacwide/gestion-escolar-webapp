@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, Router } from '@angular/router';
+import { CanActivate, Router } from '@angular/router';
 import { AuthServices } from '../servicies/auth-services';
 
 @Injectable({
@@ -12,35 +12,12 @@ export class AuthGuard implements CanActivate {
     private router: Router
   ) {}
 
-  canActivate(route: ActivatedRouteSnapshot): boolean {
+  canActivate(): boolean {
     const token = this.authService.getSessionToken();
-    if (!token || token === '') {
-      this.router.navigate(['/login']);
-      return false;
-    }
-
-    const allowedRoles = route.data['roles'] as string[] | undefined;
-    if (!allowedRoles || allowedRoles.length === 0) {
+    if (token && token !== '') {
       return true;
     }
-
-    const userGroup = this.authService.getUserGroup();
-    if (allowedRoles.includes(userGroup)) {
-      return true;
-    }
-
-    const fallbackRoute = this.getFallbackRoute();
-    this.router.navigate([fallbackRoute]);
+    this.router.navigate(['/login']);
     return false;
-  }
-
-  private getFallbackRoute(): string {
-    if (this.authService.isAdmin()) {
-      return '/administrador';
-    }
-    if (this.authService.isTeacher()) {
-      return '/maestros';
-    }
-    return '/alumnos';
   }
 }

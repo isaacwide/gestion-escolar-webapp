@@ -29,6 +29,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
    ngx-mask (inputs de código)
    ========================= */
 import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
+import { MatDialogModule } from '@angular/material/dialog';
+import { BaseChartDirective } from 'ng2-charts';
 
 /**
  * SHARED_IMPORTS
@@ -58,9 +60,11 @@ export const SHARED_IMPORTS = [
   MatCheckboxModule,
   MatSidenavModule,
   MatTableModule,
-   MatSortModule,
+  MatSortModule,
   MatPaginatorModule,
   NgxMaskDirective,
   NgxMaskPipe,
-  NgClass
+  NgClass,
+  MatDialogModule,
+  BaseChartDirective
 ];

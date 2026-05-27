@@ -40,12 +40,6 @@ export class Sidebar implements OnInit{
   closeSidebar() {
     this.mobileOpen = false;
   }
-
-  goToMaestros() {
-    this.closeSidebar();
-    this.router.navigate(['/maestros']);
-  }
-
   logout() {
     this.authService.logout().subscribe(
       (response) => {

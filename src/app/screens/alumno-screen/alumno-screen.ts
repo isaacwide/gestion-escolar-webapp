@@ -29,6 +29,8 @@ export class AlumnoScreen implements OnInit, AfterViewInit {
     'email',
     'curp',
     'carrera',
+    'direccion',
+    'sexo',
     'editar',
     'eliminar'
   ];

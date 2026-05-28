@@ -98,6 +98,48 @@ mat-form-field{
   margin-bottom: 1rem;
 }
 
+// Estilos para campos requeridos
+.required-label {
+  &::after {
+    content: '*';
+    color: #F44336;
+    margin-left: 4px;
+    font-weight: bold;
+  }
+}
+
+mat-form-field.required {
+  .mat-form-field-label {
+    &::after {
+      content: '*';
+      color: #F44336;
+      margin-left: 4px;
+      font-weight: bold;
+    }
+  }
+}
+
+.invalid-feedback {
+  color: #dc3545;
+  font-size: 12px;
+  margin-top: -15px;
+  margin-left: 5%;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.select-materias {
+  width: 100%;
+  padding-left: 2.6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+
+
 /* =========================
    Ajustes para el formulario en dispositivos móviles
    ========================= */

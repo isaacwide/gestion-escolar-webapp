@@ -8,24 +8,24 @@
         </div>
       </div>
 
-      <mat-form-field class="mat-input" appearance="outline">
-        <mat-label>Ingrese la Matricula</mat-label>
+      <mat-form-field class="mat-input required" appearance="outline">
+        <mat-label class="required-label">Ingrese la Matricula</mat-label>
         <input matInput [(ngModel)]="alumno.matricula" name="id_trabajador" placeholder="Escribe Matricula">
       </mat-form-field>
       @if (errors.matricula) {
         <div class="invalid-feedback">{{ errors.matricula }}</div>
       }
 
-      <mat-form-field class="mat-input" appearance="outline">
-        <mat-label>Nombre</mat-label>
+      <mat-form-field class="mat-input required" appearance="outline">
+        <mat-label class="required-label">Nombre</mat-label>
         <input matInput [(ngModel)]="alumno.first_name" name="first_name" placeholder="Escribe nombre del Alumno">
       </mat-form-field>
       @if (errors.first_name) {
         <div class="invalid-feedback">{{ errors.first_name }}</div>
       }
 
-      <mat-form-field class="mat-input" appearance="outline">
-        <mat-label>Apellidos</mat-label>
+      <mat-form-field class="mat-input required" appearance="outline">
+        <mat-label class="required-label">Apellidos</mat-label>
         <input matInput [(ngModel)]="alumno.last_name" name="last_name" placeholder="Escribe apellidos del Alumno">
       </mat-form-field>
       @if (errors.last_name) {
@@ -33,8 +33,8 @@
       }
 
    
-      <mat-form-field class="mat-input" appearance="outline">
-        <mat-label>Correo electrónico</mat-label>
+      <mat-form-field class="mat-input required" appearance="outline">
+        <mat-label class="required-label">Correo electrónico</mat-label>
         <input matInput [(ngModel)]="alumno.email" name="email" placeholder="Escribe correo electrónico" [disabled]="editar">
       </mat-form-field>
       @if (errors.email) {
@@ -43,8 +43,8 @@
 
    
       @if (!editar) {
-        <mat-form-field class="mat-input" appearance="outline">
-          <mat-label>Contraseña</mat-label>
+        <mat-form-field class="mat-input required" appearance="outline">
+          <mat-label class="required-label">Contraseña</mat-label>
           <input matInput [(ngModel)]="alumno.password" name="password" [type]="inputType_1" placeholder="Escribe contraseña del Alumno">
           <mat-icon matSuffix class="eye-icon" (click)="showPassword()">{{hide_1 ? 'visibility_off' : 'visibility'}}</mat-icon>
         </mat-form-field>
@@ -52,8 +52,8 @@
           <div class="invalid-feedback">{{ errors.password }}</div>
         }
 
-        <mat-form-field class="mat-input" appearance="outline">
-          <mat-label>Confirmar contraseña</mat-label>
+        <mat-form-field class="mat-input required" appearance="outline">
+          <mat-label class="required-label">Confirmar contraseña</mat-label>
           <input matInput [(ngModel)]="alumno.confirmar_password" name="confirmar_password" [type]="inputType_2" placeholder="Confirma contraseña del Alumno">
           <mat-icon matSuffix class="eye-icon" (click)="showPwdConfirmar()">{{hide_2 ? 'visibility_off' : 'visibility'}}</mat-icon>
         </mat-form-field>
@@ -62,23 +62,23 @@
         }
       }
 
-      <mat-form-field class="mat-input" appearance="outline">
-        <mat-label>Fecha de nacimiento</mat-label>
+      <mat-form-field class="mat-input required" appearance="outline">
+        <mat-label class="required-label">Fecha de nacimiento</mat-label>
         <input matInput [matDatepicker]="picker" [(ngModel)]="alumno.fecha_nacimiento" (focus)="picker.open()" placeholder="Elegir fecha de nacimiento" (dateChange)="changeFecha($event)" type="text">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
 
-      <mat-form-field class="mat-input" appearance="outline">
-        <mat-label>Teléfono</mat-label>
+      <mat-form-field class="mat-input required" appearance="outline">
+        <mat-label class="required-label">Teléfono</mat-label>
         <input matInput [(ngModel)]="alumno.telefono" mask="000-000-0000" name="telefono" placeholder="Escribe teléfono del maestro">
       </mat-form-field>
       @if (errors.telefono) {
         <div class="invalid-feedback">{{ errors.telefono }}</div>
       }
 
-      <mat-form-field class="mat-input" appearance="outline">
-        <mat-label>CURP</mat-label>
+      <mat-form-field class="mat-input required" appearance="outline">
+        <mat-label class="required-label">CURP</mat-label>
         <input matInput minlength="17" maxlength="18" [(ngModel)]="alumno.curp" name="rfc" placeholder="Escribe la CURP">
         <mat-hint align="end">{{alumno.curp?.length || 0}}/18</mat-hint>
       </mat-form-field>
@@ -86,8 +86,8 @@
         <div class="invalid-feedback">{{ errors.curp }}</div>
       }
 
-      <mat-form-field class="mat-input" appearance="outline">
-        <mat-label>Carrera que estudia</mat-label>
+      <mat-form-field class="mat-input required" appearance="outline">
+        <mat-label class="required-label">Carrera que estudia</mat-label>
         <mat-select [(ngModel)]="alumno.carrera">
           @for (area of carrera; track $index) {
             <mat-option [value]="area.viewValue">
@@ -117,6 +117,31 @@
           <div class="invalid-feedback">{{ errors.materias_json }}</div>
         }
       </div>
+
+
+
+      <mat-form-field class="mat-input required" appearance="outline">
+        <mat-label class="required-label">Direccion</mat-label>
+        <input matInput [(ngModel)]="alumno.direccion" name="direccion" placeholder="Ingrese su direccion">
+      </mat-form-field>
+      @if (errors.direccion) {
+        <div class="invalid-feedback">{{ errors.direccion }}</div>
+      }
+
+
+      <mat-form-field class="mat-input required" appearance="outline">
+        <mat-label class="required-label">Sexo</mat-label>
+        <mat-select [(ngModel)]="alumno.sexo">
+          @for (area of sexo; track $index) {
+            <mat-option [value]="area.viewValue">
+              {{area.viewValue}}
+            </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      @if (errors.carrera) {
+        <div class="invalid-feedback">{{ errors.sexo }}</div>
+      }
 
       
       <div class="section-buttons">

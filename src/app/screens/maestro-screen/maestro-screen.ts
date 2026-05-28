@@ -25,7 +25,7 @@ export class MaestrosScreen implements OnInit, AfterViewInit{
 
   public displayedColumns: string[] = [
     'id_trabajador', 'nombre', 'email', 'fecha_nacimiento',
-    'telefono', 'rfc', 'cubiculo', 'area_investigacion', 'editar', 'eliminar'
+    'telefono', 'rfc', 'cubiculo', 'area_investigacion', 'Campus', 'Sueldo', 'editar', 'eliminar'
   ];
 
   dataSource = new MatTableDataSource<DatosMaestro>([]);

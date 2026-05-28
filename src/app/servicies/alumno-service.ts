@@ -38,7 +38,10 @@ export class AlumnoService {
       'telefono':'',
       'curp':'',
       'carrera':'',
-      'materias_json': []
+      'materias_json': [],
+      'direccion' : '',
+      'sexo' :''
+
     }
   }
 
@@ -103,6 +106,16 @@ export class AlumnoService {
     if(!this.validatorService.required(data["carrera"])){
       error["carrera"] = this.errorService.required;
     }
+
+
+    if(!this.validatorService.required(data["direccion"])){
+      error["direccion"] = this.errorService.required;
+    }
+
+    if(!this.validatorService.required(data["sexo"])){
+      error["sexo"] = this.errorService.required;
+    }
+
     return error;
   }
 

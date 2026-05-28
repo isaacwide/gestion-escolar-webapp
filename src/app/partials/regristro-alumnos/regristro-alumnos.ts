@@ -27,6 +27,12 @@ export class RegristroAlumnos implements OnInit, OnChanges {
   public idUser: number = 0; 
   public posgradoFlag:boolean = false;
 
+  public sexo:any[] =[
+    { value: '1', viewValue: 'Masculino' },
+    { value: '2', viewValue: 'Fememino' },
+    { value: '3', viewValue: 'Prefiero no decirlo' }
+  ]
+
   public carrera: any[] = [
     { value: '1', viewValue: 'Ingeniería en Ciencias de la Computación' },
     { value: '2', viewValue: 'Ingeniería en Tecnologías de la Información' },

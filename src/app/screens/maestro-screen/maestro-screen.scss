@@ -9,11 +9,11 @@
     margin-left: 0;
   }
 }
-.wrapper{
+
+.wrapper {
   height: auto;
 }
 
-/* Encabezados usados en su HTML */
 .header-home,
 .header-home-maestros {
   display: flex;
@@ -23,7 +23,6 @@
   width: 100%;
 }
 
-/* Cuerpos usados en su HTML */
 .body-alumnos,
 .body-admin {
   display: flex;
@@ -32,14 +31,13 @@
   align-items: flex-start;
   width: 100%;
 }
-/* =========================
-   Contenedores y tabla
-   ========================= */
+
 .container {
   max-width: 90vw;
   width: 100%;
   margin: 0 auto;
 }
+
 .table-responsive {
   width: 100%;
   overflow-x: auto;
@@ -49,15 +47,13 @@
   border-radius: 12px;
   box-shadow: 0 4px 24px 0 rgba(0,0,0,0.07);
 }
-/* =========================
-   Alineación del texto dentro del alert
-   ========================= */
+
 .alert .title-table {
-  text-align: center; /* Esto centra específicamente el texto dentro del alert */
-  margin: 0 auto; /* Asegura que el texto esté completamente centrado */
+  text-align: center;
+  margin: 0 auto;
 }
 
-.alert-warning{
+.alert-warning {
   font-family: Nexa;
   font-size: 16px;
   color: #231F20;
@@ -70,19 +66,6 @@
   margin-bottom: 2rem;
 }
 
-.title-table{
-  margin-left: 3rem;
-  font-size: 28px;
-  text-align: left;
-  font-family: Nexa-Bold;
-  letter-spacing: 0px;
-  text-transform: capitalize;
-  opacity: 1;
-}
-
-/* Scroll horizontal SOLO para la tabla */
-
-// Scroll horizontal para tabla y paginador juntos
 .table-scroll-wrapper {
   width: 100%;
   overflow-x: auto;
@@ -94,43 +77,54 @@
   display: flex;
   flex-direction: column;
 }
-//Estilos de la tabla
+
 table {
-  min-width: 1200px;
   width: 100%;
   padding-bottom: 1.5rem;
+  table-layout: fixed;
 }
 
-::ng-deep .mat-mdc-table{
-  table-layout: fixed!important;
+::ng-deep .mat-mdc-table {
+  .col-id    { width: 9%; }
+  .col-nom   { width: 12%; }
+  .col-mail  { width: 13%; }
+  .col-fecha { width: 10%; }
+  .col-tel   { width: 10%; }
+  .col-rfc   { width: 10%; }
+  .col-cub   { width: 7%; }
+  .col-area  { width: 12%; }
+  .col-cam   { width: 8%; }
+  .col-sue   { width: 7%; }
+  .col-act   { width: 6%; }
+  .col-eli   { width: 6%; }
 }
 
-// Use palette variables for table text and header
 .mat-mdc-header-cell {
   border-bottom-color: var(--table-header-border, #231F20);
-  font-family: Nexa-Bold!important;
+  font-family: Nexa-Bold !important;
   font-size: 18px;
   text-align: left;
   letter-spacing: 0px;
   opacity: 1;
-  color: var(--text-main, #fff)!important;
+  color: var(--text-main, #231F20) !important;
 }
 
 .mat-mdc-cell {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   text-align: left;
-  font-family: Nexa!important;
-  font-size: 15px!important;
-  letter-spacing: 0px!important;
-  color: var(--text-main, #fff)!important;
-  opacity: 1!important;
+  font-family: Nexa !important;
+  font-size: 15px !important;
+  letter-spacing: 0px !important;
+  color: var(--text-main, #231F20) !important;
+  opacity: 1 !important;
 }
 
-/* Encabezado de columnas de acción centrado */
 ::ng-deep .th-accion {
   text-align: center !important;
 }
 
-/* Acciones */
 .td-editar {
   color: #0092B8 !important;
   cursor: pointer !important;
@@ -140,7 +134,6 @@ table {
 .td-editar:hover {
   color: #006179 !important;
   font-size: 25px !important;
-  text-align: center;
 }
 .td-eliminar {
   color: #E84150 !important;
@@ -151,44 +144,42 @@ table {
 .td-eliminar:hover {
   color: #ce1626 !important;
   font-size: 25px !important;
-  text-align: center;
 }
 
-/* =========================
-   Títulos (saludo/rol y card)
-   Tipografía fluida + control de quiebres
-   ========================= */
+// ========================= 
+//  Títulos
+// =========================
 .title-perfil,
 .title-table {
-  display: block;            /* nos permite controlar separación con margin */
+  display: block;
   line-height: 1.1;
-  text-wrap: balance;        /* evita líneas huérfanas (soporte moderno) */
-  overflow-wrap: anywhere;   /* defensa ante nombres muy largos */
+  text-wrap: balance;
+  overflow-wrap: anywhere;
   letter-spacing: 0;
   text-transform: capitalize;
   opacity: 1;
   font-family: Nexa-Bold;
 }
 
-/* Saludo: “Bienvenido {user}” (base desktop/tablet) */
 .title-perfil {
   margin-left: 3rem;
-  font-size: clamp(1.375rem, 1.1rem + 1.2vw, 2.25rem); /* ~22–36px */
+  font-size: clamp(1.375rem, 1.1rem + 1.2vw, 2.25rem);
   text-align: left;
   color: #231F20;
 }
 
-/* Título de la card (alerta) */
 .title-table {
   margin-left: 3rem;
-  font-size: clamp(1.125rem, 0.95rem + 0.9vw, 1.875rem); /* ~18–30px */
+  font-size: clamp(1.125rem, 0.95rem + 0.9vw, 1.875rem);
   text-align: center;
   color: #231F20;
 }
 
-/* =========================
-   Hotfix para el rango crítico 635–660 px
-   ========================= */
+// =========================
+//  Media queries
+// =========================
+
+// Hotfix 635–660px
 @media (min-width: 635px) and (max-width: 660px) {
   .title-perfil {
     font-size: clamp(1.25rem, 0.9rem + 1vw, 1.9rem);
@@ -199,36 +190,29 @@ table {
   }
 }
 
-/* ===============================================================
-   Tablet chica 576–699 px  —  A la izquierda, sin separación extra
-   (ocultamos los <br> y gestionamos el gap con margin)
-   =============================================================== */
+// Tablet chica 576–699px
 @media (min-width: 576px) and (max-width: 699px) {
-  /* Suprimimos los saltos <br> que generan separación innecesaria */
   .row.mt-5.mb-5 > .col-12 br { display: none; }
 
   .title-perfil,
   .title-table {
     text-align: left;
-    margin-left: 1.5rem;     /* más ancho útil en esta franja */
+    margin-left: 1.5rem;
   }
 
-  /* Saludo */
   .row .col-12 .title-perfil:first-of-type {
     font-size: clamp(1.25rem, 1.0rem + 1.1vw, 1.9rem);
     line-height: 1.15;
     margin-bottom: 0.4rem;
   }
 
-  /* Rol “Administrador” (izquierda, sin centrar) */
   .row .col-12 .title-perfil:last-of-type {
     text-align: left;
     font-size: clamp(1.2rem, 0.95rem + 1vw, 1.7rem);
     line-height: 1.15;
-    margin-top: 0.25rem;     /* separación controlada entre títulos */
+    margin-top: 0.25rem;
   }
 
-  /* Anula la separación extra del contenedor Bootstrap */
   .row.mt-5.mb-5 > .col-12 {
     margin-top: 1rem !important;
     margin-bottom: 0.75rem !important;
@@ -237,44 +221,36 @@ table {
   .alert .title-table { margin-left: 0; }
 }
 
-/* ===============================================================
-   “Bisagra” 700–740 px — IZQUIERDA y sin salto visual (caso 700 px)
-   =============================================================== */
+// Bisagra 700–740px
 @media (min-width: 700px) and (max-width: 740px) {
-  .row.mt-5.mb-5 > .col-12 br { display: none; } /* elimina los 2 <br> */
+  .row.mt-5.mb-5 > .col-12 br { display: none; }
+
   .title-perfil,
   .title-table {
     text-align: left;
     margin-left: 3rem;
   }
+
   .row .col-12 .title-perfil:first-of-type { margin-bottom: 0.4rem; }
   .row .col-12 .title-perfil:last-of-type  { margin-top: 0.25rem; }
 }
 
-/* =========================
-   Desktop / tablet ≥741 px
-   — Ambos títulos a la izquierda (comportamiento natural)
-   ========================= */
+// Desktop / tablet ≥741px
 @media (min-width: 741px) {
   .title-perfil,
   .title-table {
     text-align: left;
     margin-left: 3rem;
   }
+
   .row .col-12 .title-perfil:last-of-type {
-    font-size: clamp(1.25rem, 1rem + 1.1vw, 1.875rem); /* ~20–30px */
+    font-size: clamp(1.25rem, 1rem + 1.1vw, 1.875rem);
     line-height: 1.15;
   }
 }
 
-/* ===========================================
-   Vista mobile ≤575 px (~430 px de anchura)
-   — CENTRADO
-   — Menos separación entre líneas
-   — Tamaños algo mayores
-   =========================================== */
+// Mobile ≤575px
 @media (max-width: 575px) {
-  /* Quitamos los <br> para controlar el gap con margin */
   .row.mt-5.mb-5 > .col-12 br { display: none; }
 
   .title-perfil,
@@ -283,21 +259,18 @@ table {
     text-align: center;
   }
 
-  /* Saludo: centrado, un poco mayor */
   .row .col-12 .title-perfil:first-of-type {
-    font-size: clamp(1.35rem, 1.1rem + 1.6vw, 2rem);   /* ~22–32px */
+    font-size: clamp(1.35rem, 1.1rem + 1.6vw, 2rem);
     line-height: 1.15;
-    margin-bottom: 0.35rem;                            /* poco espacio */
+    margin-bottom: 0.35rem;
   }
 
-  /* Rol “Administrador”: centrado y algo mayor */
   .row .col-12 .title-perfil:last-of-type {
-    font-size: clamp(1.4rem, 1.15rem + 1.7vw, 2.1rem); /* ~22–33px */
+    font-size: clamp(1.4rem, 1.15rem + 1.7vw, 2.1rem);
     line-height: 1.15;
-    margin-top: 0.25rem;                               /* muy pegado al saludo */
+    margin-top: 0.25rem;
   }
 
-  /* Compacta los espacios del bloque contenedor */
   .row.mt-5.mb-5 > .col-12 {
     margin-top: 0.9rem !important;
     margin-bottom: 0.7rem !important;
@@ -309,20 +282,16 @@ table {
     padding: 0 8px;
   }
 
-  /* Tabla legible en pantallas chicas */
   .mat-mdc-header-cell { font-size: 16px; }
   .mat-mdc-cell        { font-size: 14px !important; line-height: 1.25; }
   .table-responsive    { -webkit-overflow-scrolling: touch; }
 }
 
-/* =========================
-   Ajustes para tablets 805–992 px
-   (regla original preservada)
-   ========================= */
+// Tablets 805–992px
 @media (max-width: 992px) and (min-width: 805px) {
   .container {
     max-width: 95vw;
-    width: 130%;
+    width: 100%;  // ← corregido, sin 130%
     margin: 0 auto;
   }
   .table-responsive {
@@ -336,10 +305,7 @@ table {
   }
 }
 
-/* =========================
-   Opcional: truncar SOLO el nombre en mobile
-   (si envuelve {{name_user}} en <strong class="user-name">)
-   ========================= */
+// Mobile nombre truncado
 @media (max-width: 575px) {
   .user-name {
     white-space: nowrap;

@@ -69,6 +69,16 @@
                   <td mat-cell *matCellDef="let element"> {{element.area_investigacion}} </td>
                 </ng-container>
 
+                <ng-container matColumnDef="Campus">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Campus</th>
+                  <td mat-cell *matCellDef="let element"> {{element.campus}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Sueldo">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Sueldo</th>
+                  <td mat-cell *matCellDef="let element"> {{element.sueldo}} </td>
+                </ng-container>
+
                 <ng-container matColumnDef="editar">
                   <th mat-header-cell *matHeaderCellDef class="th-accion"> Actualizar </th>
                   <td mat-cell *matCellDef="let element" class="td-editar">

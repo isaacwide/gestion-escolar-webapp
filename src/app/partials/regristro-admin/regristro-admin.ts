@@ -113,7 +113,7 @@ export class RegristroAdmin implements OnInit {
           this.notificationService.success("Administrador registrado exitosamente");
           console.log(response);
           //Si se registra correctamente, redirigimos al login
-          this.router.navigate(['']);
+          this.router.navigate(['administrador']);
         },
         error: (error) => {
           console.error("Error al registrar administrador: ", error);

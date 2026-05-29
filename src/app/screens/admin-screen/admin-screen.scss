@@ -205,18 +205,31 @@
 }
 
 /* ===== Títulos ===== */
-.title-perfil {
+.title-perfil,
+.title-table {
   display: block;
-  font-family: Nexa-Bold, sans-serif;
-  font-size: clamp(1.375rem, 1.1rem + 1.2vw, 2.25rem);
-  color: #231F20;
-  margin-left: 3rem;
+  line-height: 1.1;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+  letter-spacing: 0;
   text-transform: capitalize;
+  opacity: 1;
+  font-family: Nexa-Bold, sans-serif;
 }
 
+/* Saludo: "Bienvenido {user}" (base desktop/tablet) */
+.title-perfil {
+  margin-left: 3rem;
+  font-size: clamp(1.375rem, 1.1rem + 1.2vw, 2.25rem);
+  text-align: left;
+  color: #231F20;
+}
+
+/* Título de la card (alerta) */
 .title-table {
-  font-family: Nexa-Bold, sans-serif;
+  margin-left: 3rem;
   font-size: clamp(1.125rem, 0.95rem + 0.9vw, 1.875rem);
+  text-align: center;
   color: #231F20;
 }
 
@@ -231,14 +244,118 @@
   padding: 1rem 1.5rem;
 }
 
-@media (max-width: 575px) {
+// Hotfix 635–660px
+@media (min-width: 635px) and (max-width: 660px) {
   .title-perfil {
-    margin-left: 0;
-    text-align: center;
+    font-size: clamp(1.25rem, 0.9rem + 1vw, 1.9rem);
+    letter-spacing: -0.01em;
+  }
+  .title-table {
+    font-size: clamp(1.05rem, 0.85rem + 0.7vw, 1.6rem);
+  }
+}
+
+// Tablet chica 576–699px
+@media (min-width: 576px) and (max-width: 699px) {
+  .row.mt-5.mb-5 > .col-12 br { display: none; }
+
+  .title-perfil,
+  .title-table {
+    text-align: left;
+    margin-left: 1.5rem;
   }
 
-  .main-content-admin {
-    margin-left: 0;
+  .row .col-12 .title-perfil:first-of-type {
+    font-size: clamp(1.25rem, 1.0rem + 1.1vw, 1.9rem);
+    line-height: 1.15;
+    margin-bottom: 0.4rem;
+  }
+
+  .row .col-12 .title-perfil:last-of-type {
+    text-align: left;
+    font-size: clamp(1.2rem, 0.95rem + 1vw, 1.7rem);
+    line-height: 1.15;
+    margin-top: 0.25rem;
+  }
+
+  .row.mt-5.mb-5 > .col-12 {
+    margin-top: 1rem !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  .alert .title-table { margin-left: 0; }
+}
+
+// Bisagra 700–740px
+@media (min-width: 700px) and (max-width: 740px) {
+  .row.mt-5.mb-5 > .col-12 br { display: none; }
+
+  .title-perfil,
+  .title-table {
+    text-align: left;
+    margin-left: 3rem;
+  }
+
+  .row .col-12 .title-perfil:first-of-type { margin-bottom: 0.4rem; }
+  .row .col-12 .title-perfil:last-of-type  { margin-top: 0.25rem; }
+}
+
+// Desktop / tablet ≥741px
+@media (min-width: 741px) {
+  .title-perfil,
+  .title-table {
+    text-align: left;
+    margin-left: 3rem;
+  }
+
+  .row .col-12 .title-perfil:last-of-type {
+    font-size: clamp(1.25rem, 1rem + 1.1vw, 1.875rem);
+    line-height: 1.15;
+  }
+}
+
+@media (max-width: 575px) {
+  .row.mt-5.mb-5 > .col-12 br { display: none; }
+
+
+  .body-admin,
+  .body-alumnos {
+    align-items: center !important;
+  }
+
+  .col-12 {
+    text-align: center !important;
+  }
+
+  .title-perfil,
+  .title-table {
+    margin-left: 0 !important; 
+    text-align: center !important;
+    text-align: center !important;
+    width: 100% !important;
+  }
+
+  .row .col-12 .title-perfil:first-of-type {
+    font-size: clamp(1.35rem, 1.1rem + 1.6vw, 2rem);
+    line-height: 1.15;
+    margin-bottom: 0.35rem;
+  }
+
+  .row .col-12 .title-perfil:last-of-type {
+    font-size: clamp(1.4rem, 1.15rem + 1.7vw, 2.1rem);
+    line-height: 1.15;
+    margin-top: 0.25rem;
+  }
+
+  .row.mt-5.mb-5 > .col-12 {
+    margin-top: 0.9rem !important;
+    margin-bottom: 0.7rem !important;
+  }
+
+  .alert .title-table {
+    margin: 0;
+    line-height: 1.2;
+    padding: 0 8px;
   }
 }
 

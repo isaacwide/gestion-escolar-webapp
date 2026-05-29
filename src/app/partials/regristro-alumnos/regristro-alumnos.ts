@@ -160,7 +160,7 @@ export class RegristroAlumnos implements OnInit, OnChanges {
         next: (response) => {
           this.notificationService.success("Alumno registrado exitosamente");
           console.log(response);
-          this.router.navigate(['']);
+          this.router.navigate(['/alumnos']);
         },
         error: (error) => {
           console.error("Error al registrar Alumno: ", error);

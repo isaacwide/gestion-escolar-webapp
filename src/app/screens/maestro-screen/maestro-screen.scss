@@ -66,11 +66,11 @@
   margin-bottom: 2rem;
 }
 
-.table-scroll-wrapper {
+.card-table-wrapper {
   width: 100%;
-  overflow-x: auto;
-  min-height: 1px;
   margin: 0 auto;
+  padding: 1.5rem;
+  box-sizing: border-box;
   background: var(--table-bg, #fff);
   border-radius: 12px;
   box-shadow: 0 4px 24px 0 rgba(0,0,0,0.07);
@@ -78,10 +78,44 @@
   flex-direction: column;
 }
 
+.table-scroll-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  min-height: 1px;
+}
+
 table {
   width: 100%;
   padding-bottom: 1.5rem;
-  table-layout: fixed;
+  table-layout: auto;
+  border-collapse: collapse;
+}
+
+/* ===== Estilos de tabla igual que admin ===== */
+.table {
+  width: 100%;
+  table-layout: auto;
+  border-collapse: collapse;
+}
+
+.table th,
+table th {
+  font-family: Nexa-Bold, sans-serif;
+  font-size: 15px;
+  color: #231F20;
+  padding: 12px 16px;
+  white-space: nowrap;
+  background-color: var(--table-header-bg, #cfe2ff);
+}
+
+.table td,
+table td {
+  font-family: Nexa, sans-serif;
+  font-size: 14px;
+  color: var(--text-main, #231F20);
+  padding: 10px 16px;
+  white-space: nowrap;
+  vertical-align: middle;
 }
 
 ::ng-deep .mat-mdc-table {
@@ -102,11 +136,14 @@ table {
 .mat-mdc-header-cell {
   border-bottom-color: var(--table-header-border, #231F20);
   font-family: Nexa-Bold !important;
-  font-size: 18px;
+  font-size: 15px;
   text-align: left;
   letter-spacing: 0px;
   opacity: 1;
   color: var(--text-main, #231F20) !important;
+  background-color: var(--table-header-bg, #cfe2ff) !important;
+  padding: 12px 16px !important;
+  white-space: nowrap !important;
 }
 
 .mat-mdc-cell {
@@ -115,10 +152,11 @@ table {
   text-overflow: ellipsis;
   text-align: left;
   font-family: Nexa !important;
-  font-size: 15px !important;
+  font-size: 14px !important;
   letter-spacing: 0px !important;
   color: var(--text-main, #231F20) !important;
   opacity: 1 !important;
+  padding: 10px 16px !important;
 }
 
 ::ng-deep .th-accion {

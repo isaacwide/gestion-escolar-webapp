@@ -18,7 +18,7 @@
         </div>
 
         @if (lista_alumno.length > 0) {
-          <div class="table-scroll-wrapper">
+          <div class="card-table-wrapper">
 
             <mat-form-field appearance="outline" style="width: 100%; margin-bottom: 16px;">
               <mat-label>Buscar por nombre</mat-label>
@@ -26,8 +26,9 @@
               <mat-icon matSuffix>search</mat-icon>
             </mat-form-field>
 
-            <div class="mat-elevation-z8">
-              <table mat-table [dataSource]="dataSource" matSort #sort="matSort" style="min-width: 1100px; width: 100%;">
+            <div class="table-scroll-wrapper">
+              <div class="mat-elevation-z8">
+                <table mat-table [dataSource]="dataSource" matSort #sort="matSort" style="min-width: 1100px; width: 100%;">
 
                 <ng-container matColumnDef="matricula">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> Matrícula </th>
@@ -93,9 +94,10 @@
                 </tr>
               </table>
             </div>
+            </div>
 
             <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
-              style="min-width: 1100px; width: 100%;">
+              style="width: 100%;">
             </mat-paginator>
           </div>
 
